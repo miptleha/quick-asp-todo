@@ -1,0 +1,44 @@
+﻿@page
+@model quick_asp_todo.Pages.EntryModel
+@{
+}
+
+<form method="post">
+    <div class="form-group row">
+        <label for="colFormLabelLg" class="col-sm-2 col-form-label">Card Title</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="colFormLabelLg" name="title" value="@Model.Entry.Title" required>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title mt-0">Card Items</h5>
+            <div class="form-group" id="card-items">
+                @for (int i1 = 0; i1 < Model.Entry.Items.Count; i1++)
+                {
+                    var i = Model.Entry.Items[i1];
+                    <div class="row mb-2">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" value="@i.Text" name="text-@i1" required>
+                        </div>
+                        <div class="custom-control custom-checkbox col-sm-2">
+                            <input type="checkbox" class="custom-control-input align-middle" name="done-@i1" id="check-@i1" @Html.Raw(i.Done ? "checked=\"checked\"" : "")>
+                            <label class="custom-control-label align-middle" for="check-@i1">Done</label>
+                            <button class="btn btn-primary my-1 delete-btn">Delete</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="btn btn-primary my-1" id="add-new">Add new</button>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" asp-page-handler="Submit">Submit</button>
+    <a class="btn btn-primary" asp-area="" asp-page="/Index" role="button">Cancel</a>
+    @if (Model.Id != null)
+    {
+    <button class="btn btn-danger" asp-page-handler="Delete">Delete</button>
+    }
+    <input type="hidden" name="id" value="@Model.Id" />
+</form>
