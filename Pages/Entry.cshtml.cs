@@ -16,7 +16,8 @@ namespace quick_asp_todo.Pages
             {
                 Entry = ToDoEntry.ReadOne(id.Value);
             }
-            else
+
+            if (Entry == null)
             {
                 Entry = new ToDoEntry();
                 Entry.Items.Add(new ToDoItem(null));
@@ -35,7 +36,8 @@ namespace quick_asp_todo.Pages
             {
                 Entry = ToDoEntry.ReadOne(int.Parse(id));
             }
-            else
+
+            if (Entry == null)
             {
                 Entry = new ToDoEntry();
                 ToDoEntry.ReadAll().Add(Entry);

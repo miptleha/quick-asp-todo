@@ -56,6 +56,8 @@ namespace quick_asp_todo
 
         internal static ToDoEntry ReadOne(int id)
         {
+            if (id >= _res.Count)
+                return null;
             return _res[id];
         }
 
