@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace quick_asp_todo
 {
     public class ToDoEntry
     {
+        [JsonIgnore] 
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Category { get; set; }
@@ -19,10 +24,9 @@ namespace quick_asp_todo
         {
             if (_res != null)
             {
-                var opt = new JsonSerializerOptions() { WriteIndented = true };
+                var opt = new JsonSerializerOptions() { WriteIndented = true, Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping };
                 var str = JsonSerializer.Serialize(_res, opt);
                 File.WriteAllText(ToDoPath, str);
-
             }
         }
 
@@ -33,6 +37,11 @@ namespace quick_asp_todo
                 var str = File.ReadAllText(ToDoPath);
                 //var obj = JsonSerializer.Deserialize(str);
                 _res = JsonSerializer.Deserialize<List<ToDoEntry>>(str);
+
+                for (int i = 0; i < _res.Count; i++)
+                {
+                    _res[i].Id = i;
+                }
             }
             catch (FileNotFoundException)
             {
