@@ -55,6 +55,7 @@ namespace quick_asp_todo.Pages
             }
 
             Entry.Title = Request.Form["title"];
+            Entry.Category = Request.Form["category"];
             int i1 = 0;
             for (int i = 0; i <= max; i++)
             {

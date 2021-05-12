@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Quick ASP todo";
     ViewData["Index"] = true;
+    ViewData["Categories"] = Model.Categories;
+    ViewData["Category"] = Model.Category;
 }
 
 @Html.AntiForgeryToken()
@@ -12,7 +14,13 @@
     var t = Model.ToDo[i1];
     <div class="card float-left ml-3 mb-3 shadow" style="max-width: 23rem;">
         <div class="card-body p-0 pl-3 pt-2 pr-3">
-            <h5 class="card-title text-center">@t.Title</h5>
+            <h5 class="card-title text-center">
+                @t.Title
+                @if (!string.IsNullOrWhiteSpace(t.Category))
+                {
+                    <span class="small text-muted"> (@t.Category)</span>
+                }
+            </h5>
         </div>
         <ul class="list-group list-group-flush">
             @for (int i2 = 0; i2 < t.Items.Count; i2++)

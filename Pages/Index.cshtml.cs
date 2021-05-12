@@ -19,9 +19,25 @@ namespace quick_asp_todo.Pages
 
         public List<ToDoEntry> ToDo { get; private set; }
 
-        public void OnGet()
+        public IEnumerable<string> Categories { get; private set; }
+        public string Category { get; private set; }
+
+        public void OnGet(string category)
         {
             ToDo = ToDoEntry.ReadAll();
+            Categories = ToDo.Select(i => i.Category).Distinct().Where(i => !string.IsNullOrWhiteSpace(i));
+            
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                Category = category;
+                var todo = new List<ToDoEntry>();
+                foreach (var i in ToDo)
+                {
+                    if (i.Category == category)
+                        todo.Add(i);
+                }
+                ToDo = todo;
+            }
         }
     }
 }

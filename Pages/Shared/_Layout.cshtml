@@ -17,6 +17,28 @@
                     <a asp-page="/Entry" id="url-link">Create new todo card</a>
                 }
             </div>
+
+            @if (ViewData["Categories"] != null)
+            {
+                var categories = (IEnumerable<string>)ViewData["Categories"];
+                <div class="input-group input-group-sm">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="sel-category">Category</label>
+                    </div>
+                    <select class="custom-select" id="sel-category">
+                        <option>All</option>
+                        @if (categories.Count() > 0)
+                        {
+                            <optgroup label="---">
+                            @foreach (var c in categories)
+                            {
+                                <option selected="@(c == (string)ViewData["Category"])">@c</option>
+                            }
+                            </optgroup>
+                        }
+                    </select>
+                </div>
+            }
         </nav>
     </header>
 

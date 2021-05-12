@@ -14,6 +14,21 @@
     return false;
 });
 
+$('#sel-category').change(function () {
+    var cat = $(this).find('option:selected').text();
+    if (cat.length > 0) {
+        var url = window.location.href;
+        var index = url.indexOf("?category=");
+        if (index >= 0) {
+            url = url.substring(0, index);
+        }
+        if (cat != 'All') {
+            url = url + "?category=" + cat;
+        }
+        window.location.href = url;
+    }
+});
+
 $('body').on('click', '.delete-btn', function () {
     var $p = $(this).parent().parent();
     if ($p.parent().children().length > 1) 

@@ -11,6 +11,8 @@ namespace quick_asp_todo
     public class ToDoEntry
     {
         public string Title { get; set; }
+
+        public string Category { get; set; }
         public List<ToDoItem> Items { get; set; }
 
         public static void Save()
