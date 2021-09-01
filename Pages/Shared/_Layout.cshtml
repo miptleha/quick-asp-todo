@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -14,7 +14,7 @@
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Quick ASP todo</a>
                 @if (ViewData["Index"] != null)
                 {
-                    <a asp-page="/Entry" id="url-link">Create new todo card</a>
+                    <a asp-page="/Entry" id="url-link" asp-route-cat="@((string)ViewData["Category"])">Create new todo card</a>
                 }
             </div>
 
@@ -26,7 +26,7 @@
                         <label class="input-group-text" for="sel-category">Category</label>
                     </div>
                     <select class="custom-select" id="sel-category">
-                        <option>All</option>
+                        <option>none</option>
                         @if (categories.Count() > 0)
                         {
                             <optgroup label="---">

@@ -9,33 +9,54 @@
 
 @Html.AntiForgeryToken()
 
-@for (int i1 = 0; i1 < Model.ToDo.Count; i1++)
-{
-    var t = Model.ToDo[i1];
-    <div class="card float-left ml-3 mb-3 shadow" style="max-width: 23rem;">
-        <div class="card-body p-0 pl-3 pt-2 pr-3">
-            <h5 class="card-title text-center">
-                @t.Title
-                @if (!string.IsNullOrWhiteSpace(t.Category))
-                {
-                    <span class="small text-muted"> (@t.Category)</span>
-                }
-            </h5>
-        </div>
-        <ul class="list-group list-group-flush">
-            @for (int i2 = 0; i2 < t.Items.Count; i2++)
+<div class="page">
+    <div class="left-content">
+        <ul class="list-group mainNav">
+            @if (ViewData["Categories"] != null)
             {
-                var i = t.Items[i2];
-                <li class="list-group-item">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input saved-checkbox" id="check-@t.Id-@i2" @Html.Raw(i.Done ? "checked=\"checked\"" : "")>
-                        <label class="custom-control-label" for="check-@t.Id-@i2">@i.Text</label>
-                    </div>
-                </li>
+                var categories = (IEnumerable<string>)ViewData["Categories"];
+
+                <li href="#" class="list-group-item @(string.IsNullOrEmpty((string)ViewData["Category"]) ? "active" : "")">none</li>
+                @if (categories.Count() > 0)
+                {
+                    @foreach (var c in categories)
+                    {
+                        <li href="#" class="list-group-item @(c == (string)ViewData["Category"] ? "active" : "")">@c</li>
+                    }
+                }
             }
         </ul>
-        <div class="card-body p-2 pl-3">
-            <a class="card-link" asp-page="/Entry" asp-route-id="@t.Id">Edit card</a>
-        </div>
     </div>
-}
+    <div class="right-content">
+        @for (int i1 = 0; i1 < Model.ToDo.Count; i1++)
+        {
+            var t = Model.ToDo[i1];
+            <div class="card float-left ml-3 mb-3 shadow" style="max-width: 23rem;">
+                <div class="card-body p-0 pl-3 pt-2 pr-3">
+                    <h5 class="card-title text-center">
+                        @t.Title
+                        @if (!string.IsNullOrWhiteSpace(t.Category))
+                        {
+                            <span class="small text-muted"> (@t.Category)</span>
+                        }
+                    </h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @for (int i2 = 0; i2 < t.Items.Count; i2++)
+                    {
+                        var i = t.Items[i2];
+                        <li class="list-group-item">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input saved-checkbox" id="check-@t.Id-@i2" @Html.Raw(i.Done ? "checked=\"checked\"" : "")>
+                                <label class="custom-control-label" for="check-@t.Id-@i2">@i.Text</label>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div class="card-body p-2 pl-3">
+                    <a class="card-link" asp-page="/Entry" asp-route-id="@t.Id">Edit card</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

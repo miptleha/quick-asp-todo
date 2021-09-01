@@ -16,18 +16,22 @@
 
 $('#sel-category').change(function () {
     var cat = $(this).find('option:selected').text();
+    setCategory(cat);
+});
+
+function setCategory(cat) {
     if (cat.length > 0) {
         var url = window.location.href;
         var index = url.indexOf("?category=");
         if (index >= 0) {
             url = url.substring(0, index);
         }
-        if (cat != 'All') {
+        if (cat != 'none') {
             url = url + "?category=" + cat;
         }
         window.location.href = url;
     }
-});
+}
 
 $('body').on('click', '.delete-btn', function () {
     var $p = $(this).parent().parent();
@@ -58,4 +62,12 @@ $('body').on('click', '.saved-checkbox', function () {
             }
         });
     }
+});
+
+$('.mainNav > li').click(function (e) {
+    $('.mainNav > li').removeClass('active');
+
+    $(this).addClass('active');
+    var cat = $(this).text();
+    setCategory(cat);
 });

@@ -38,6 +38,10 @@ namespace quick_asp_todo.Pages
                 }
                 ToDo = todo;
             }
+            else
+            {
+                ToDo = new List<ToDoEntry>();
+            }
         }
     }
 }

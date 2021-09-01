@@ -9,7 +9,7 @@ namespace quick_asp_todo.Pages
 {
     public class EntryModel : PageModel
     {
-        public void OnGet(int? id)
+        public void OnGet(int? id, string cat)
         {
             Id = id;
             if (id != null)
@@ -20,6 +20,7 @@ namespace quick_asp_todo.Pages
             if (Entry == null)
             {
                 Entry = new ToDoEntry();
+                Entry.Category = cat;
                 Entry.Items.Add(new ToDoItem(null));
             }
         }
