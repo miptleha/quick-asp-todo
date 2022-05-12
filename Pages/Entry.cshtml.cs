@@ -41,7 +41,9 @@ namespace quick_asp_todo.Pages
             if (Entry == null)
             {
                 Entry = new ToDoEntry();
-                ToDoEntry.ReadAll().Add(Entry);
+                var list = ToDoEntry.ReadAll();
+                Entry.Id = list.Count;
+                list.Add(Entry);
             }
 
             int max = 0;
@@ -86,7 +88,7 @@ namespace quick_asp_todo.Pages
 
             ToDoEntry.Save();
             
-            return Redirect("~/");
+            return Redirect("~/?category=" + Entry.Category);
         }
 
         public IActionResult OnPostCheck(int id1, int id2, bool check)
@@ -104,17 +106,22 @@ namespace quick_asp_todo.Pages
         public IActionResult OnPostDelete()
         {
             var id = Request.Form["id"][0];
+            var category = Request.Form["category"][0];
 
             int n;
             if (!string.IsNullOrEmpty(id) && int.TryParse(id, out n))
             {
                 var list = ToDoEntry.ReadAll();
                 if (list.Count > n)
+                {
                     list.RemoveAt(n);
+                    for (int i = n; i < list.Count; i++)
+                        list[i].Id = i;
+                }
                 ToDoEntry.Save();
             }
 
-            return Redirect("~/");
+            return Redirect("~/?category=" + category);
         }
     }
 }
