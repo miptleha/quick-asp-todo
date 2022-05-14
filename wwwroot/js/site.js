@@ -49,7 +49,7 @@ $('body').on('click', '.saved-checkbox', function () {
     if (ids.length > 2) {
 
         $.ajax({
-            url: url + "?handler=Check",
+            url: url + (url.indexOf("?") == -1 ? "?" : "&") + "handler=Check",
             type: 'Post',
             headers:
             {
