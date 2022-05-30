@@ -48,7 +48,7 @@
                         <li class="list-group-item">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input saved-checkbox" id="check-@t.Id-@i2" @Html.Raw(i.Done ? "checked=\"checked\"" : "")>
-                                <label class="custom-control-label" for="check-@t.Id-@i2">@i.Text</label>
+                                <label class="custom-control-label" for="check-@t.Id-@i2">@Html.Raw(TextDecorator.Decorate(i.Text))</label>
                             </div>
                         </li>
                     }
