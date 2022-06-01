@@ -9,19 +9,19 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid justify-content-start">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Quick ASP todo</a>
                 @if (ViewData["Index"] != null)
                 {
-                    <a asp-page="/Entry" id="url-link" asp-route-cat="@((string)ViewData["Category"])">Create new todo card</a>
+                    <a asp-page="/Entry" id="url-link" class="btn btn-outline-primary" asp-route-cat="@((string)ViewData["Category"])">Create new todo card</a>
                 }
             </div>
 
             @if (ViewData["Categories"] != null)
             {
                 var categories = (IEnumerable<string>)ViewData["Categories"];
-                <div class="input-group input-group-sm">
+                <div class="input-group input-group-md">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="sel-category">Category</label>
                     </div>

@@ -86,3 +86,25 @@ body {
     margin-left: 200px;
     height: 100%;
 }
+
+.todo-card {
+    max-width: 23rem;
+}
+
+@media (max-width: 767.98px) {
+    .left-content {
+        display: none;
+    }
+
+    .right-content {
+        margin-left: 0;
+    }
+
+    .right-content {
+        margin-left: -15px;
+    }
+
+    .todo-card {
+        max-width: 15rem;
+    }
+}
